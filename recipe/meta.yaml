@@ -6,22 +6,22 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/xarray-schema-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/xarray-schema-{{ version }}.tar.gz
   sha256: 9c6c760489c0690a70394b2ad1368b32f8fa1333911c361b4adf249384212920
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.8
+    - python {{ python_min }}
     - setuptools >=30.3.0
     - setuptools-scm
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - xarray >=0.16
     - numpy >=1.20
 
@@ -32,6 +32,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/carbonplan/xarray-schema
